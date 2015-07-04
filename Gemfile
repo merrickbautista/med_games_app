@@ -43,3 +43,6 @@ group :development, :test do
   gem 'spring'
 end
 
+#Miscellaneous
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+

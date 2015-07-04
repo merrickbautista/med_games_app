@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MedGamesApp</title>
+  <title>Med Games 2015</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div style="width: 65%; margin: auto; border: solid 1px green;">
+		<div style="text-align:center; z-index:-1;">
+			<%= image_tag "med_games_banner.png", :class => "banner"%>
+		</div>
 
-<%= yield %>
-
+		<div class="ui fluid six item inverted menu" style="text-align: center;">
+		  <a class="active item" href=<%=root_path%>>
+		    <i class="home icon"></i> Home
+		  </a>
+		  <a class="item" href=<%=events_path%>>
+		    <i class="calendar icon"></i> Events
+		  </a>
+		  <a class="item" href=<%=schools_path%>>
+		    <i class="university icon"></i> Schools
+		  </a>
+		  <a class="item" href=<%=sponsors_path%>>
+		  	<i class="heartbeat icon"></i> Sponsors
+		  </a>
+		  <a class="item" href=<%=location_path%>>
+		  	<i class="marker icon"></i> Location
+		  </a>
+		  <a class="item" href=<%=registration_path%>>
+		  	<i class="add user icon"></i> Registration
+		  </a>
+		</div>
+		<div style="padding-left: 80px; padding-right: 80px; padding-top: 40px; padding-bottom: 40px;">
+			<%= yield %>
+		</div>
+	</div>
 </body>
 </html>
