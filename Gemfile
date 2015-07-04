@@ -45,5 +45,6 @@ end
 
 #Miscellaneous
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'rails_12factor', group: :production
 
 
