@@ -12,23 +12,26 @@
 			<%= image_tag "med_games_banner.png", :class => "banner"%>
 		</div>
 
-		<div class="ui fluid six item inverted menu" style="text-align: center;">
-		  <a class="active item" href=<%=root_path%>>
+		<div class="ui fluid seven item inverted menu" style="text-align: center;">
+		  <a class="<%= 'active' if current_page?(root_path) %> item" href=<%=root_path%>>
 		    <i class="home icon"></i> Home
 		  </a>
-		  <a class="item" href=<%=events_path%>>
+		  <a class="<%= 'active' if current_page?(events_path) %> item" href=<%=events_path%>>
 		    <i class="calendar icon"></i> Events
 		  </a>
-		  <a class="item" href=<%=schools_path%>>
+		  <a class="<%= 'active' if current_page?(schools_path) %> item" href=<%=schools_path%>>
 		    <i class="university icon"></i> Schools
 		  </a>
-		  <a class="item" href=<%=sponsors_path%>>
+		  <a class="<%= 'active' if current_page?(champions_path) %> item" href=<%=champions_path%>>
+		  	<i class="trophy icon"></i> Champions
+		  </a>
+		  <a class="<%= 'active' if current_page?(sponsors_path) %> item" href=<%=sponsors_path%>>
 		  	<i class="heartbeat icon"></i> Sponsors
 		  </a>
-		  <a class="item" href=<%=location_path%>>
+		  <a class="<%= 'active' if current_page?(location_path) %> item" href=<%=location_path%>>
 		  	<i class="marker icon"></i> Location
 		  </a>
-		  <a class="item" href=<%=registration_path%>>
+		  <a class="<%= 'active' if current_page?(registration_path) %> item" href=<%=registration_path%>>
 		  	<i class="add user icon"></i> Registration
 		  </a>
 		</div>

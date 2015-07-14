@@ -8,6 +8,9 @@ class StaticPagesController < ApplicationController
 	def teams
 	end
 
+	def champions
+	end
+
 	def sponsors
 	end
 
