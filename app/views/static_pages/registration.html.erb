@@ -1,23 +1,240 @@
+<script>
+$(document).ready(function(){
+    $('select.dropdown').dropdown();
+    $('.ui.radio.checkbox').checkbox();
+    $('.ui.checkbox').checkbox();
+	$('.ui.form')
+	  .form({
+	  	revalidate: true,
+	    first_name: {
+	      identifier: 'first_name',
+	      rules: [
+	        {
+	          type: 'empty',
+	          prompt: 'Please enter your first name'
+	        }
+	      ]
+	    },
+	  	last_name: {
+	  		identifier: 'last_name',
+	  		rules: [
+	  			{
+	  				type: 'empty',
+	  				prompt: 'Please enter your last name'
+	  			}
+	  		]
+	  	},
+	  	school: {
+	  		identifier: 'school',
+	  		rules: [
+	  			{
+	  				type: 'empty',
+	  				prompt: 'Please select your school'
+	  			}
+	  		]
+	  	},
+	  	email: {
+	  		identifier: 'email',
+	  		rules: [
+	  			{
+	  				type: 'email',
+	  				prompt: 'Please enter a valid e-mail'
+	  			}
+	  		]
+	  	},
+	  	diet: {
+	  		identifier: 'diet',
+	  		rules: [
+	  			{
+	  				type: 'checked',
+	  				prompt: 'Please select a diet option'
+	  			}
+	  		]
+	  	},
+	  	waiver: {
+	  		identifier: 'waiver',
+	  		rules: [
+	  			{
+	  				type: 'checked',
+	  				prompt: 'Please acknowledge that you have read and signed the waiver'
+	  			}
+	  		]
+	  	},
+	  });
+$("form").on('submit', function (e) {
+   //ajax call here
+  	var first = $('#first-name').val();
+  	var last = $('#last-name').val();
+  	var school = $('#school').val();
+  	var email = $('#email').val();
+  	var fivekrun = $('#5krun').val();
+  	var basketball = $('#basketball').val();
+  	var dance = $('#dance').val();
+  	var dodgeball = $('#dodgeball').val();
+  	var flagfootball = $('#flagfootball').val();
+  	var relayrace = $('#relayrace').val();
+  	var soccer = $('#soccer').val();
+  	var volleyball = $('#volleyball').val();
+  	var none = $('#none').val();
+  	var vegetarian = $('#vegetarian').val();
+  	var other = $('#other').val();
+  	var othertext = $('#othertext').val();
+  	var waiver = $('#waiver').prop('checked');
+  	if (first !== "" && waiver) {
+            $.ajax({
+                url: "https://docs.google.com/forms/d/1eg8uamz1dayiuF4ZqlhRkEcPcEW9NmjKSjdXoItfkcY/formResponse",
+                data: { 
+                "entry.734080887": first},
+                type: "POST",
+                dataType: "xml",
+                statusCode: {
+                    0: function () {
+                        window.location.replace("schools");
+                    },
+                    200: function () {
+                        window.location.replace("events");
+                    }
+                }
+            });
+    }
+   //stop form submission
+   e.preventDefault();
+});
+
+});
+
+</script>
 <h1>Registration</h1>
 
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<form class="ui fluid form" id="registration-form">
+  <div class="ui error message"></div>
+  <div class="field">
+    <div class="two fields">
+      <div class="required field">
+      	<label>First Name</label>
+        <input type="text" id="first-name" name="first_name" placeholder="First Name">
+      </div>
+      <div class="required field">
+      	<label>Last Name</label>
+        <input type="text" id="last-name" name="last_name" placeholder="Last Name">
+      </div>
+    </div>
+  </div>
+  
+  <div class="field">
+	  <div class="required field">
+		  	<label>School</label>
+			<select class="ui dropdown" id="school" name="school">
+				<option value = "">School</option>
+				<option value = "UCD">UCD</option>
+				<option value = "UCI">UCI</option>
+				<option value = "UCLA">UCLA</option>
+				<option value = "UCR">UCR</option>
+				<option value = "UCSD">UCSD</option>
+				<option value = "USC">USC</option>
+				<option value = "WESTERN">Western</option>
+			</select>
+	  </div>
 
-<!-- Identify your business so that you can collect the payments. -->
-<input type="hidden" name="business" value="alexis.d.rounds@gmail.com">
+	  <div class="required field">
+	  	<label>E-mail</label>
+	  	<input type="email" id="email" name="email" placeholder = "example@school.edu">
+	  </div>
+  </div>
+  <hr/>
 
-<!-- Specify a Buy Now button. -->
-<input type="hidden" name="cmd" value="_xclick">
+  <div class="inline grouped fields">
+  <label>Sports</label>
+  <br/>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="checkbox" id= "5krun" name="5krun" tabindex="0" class="hidden">
+        <label>5K Run</label>
+      </div>
+    </div>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="checkbox" id="basketball" name="basketball" tabindex="0" class="hidden">
+        <label>Basketball</label>
+      </div>
+    </div>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="checkbox" id="dance" name="dance" tabindex="0" class="hidden">
+        <label>Dance</label>
+      </div>
+    </div>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="checkbox" id="dodgeball" name="dodgeball" tabindex="0" class="hidden">
+        <label>Dodgeball</label>
+      </div>
+    </div>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="radio" id="flagfootball" name="flagfootball" tabindex="0" class="hidden">
+        <label>Flag Football</label>
+      </div>
+    </div>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="checkbox" id="relayrace" name="relayrace" tabindex="0" class="hidden">
+        <label>Relay Race</label>
+      </div>
+    </div>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="checkbox" id="soccer" name="soccer" tabindex="0" class="hidden">
+        <label>Soccer</label>
+      </div>
+    </div>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="checkbox" id="volleyball" name="volleyball" tabindex="0" class="hidden">
+        <label>Volleyball</label>
+      </div>
+    </div>
+  </div>
 
-<!-- Specify details about the item that buyers will purchase. -->
-<input type="hidden" name="item_name" value="MedGames Participation">
-<input type="hidden" name="amount" value="20">
-<input type="hidden" name="currency_code" value="USD">
 
-<!-- Display the payment button. -->
-<input type="image" name="submit" border="0"
-src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
-alt="PayPal - The safer, easier way to pay online">
-<img alt="" border="0" width="1" height="1"
-src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+	<hr/>
 
+	<div class="required inline grouped fields">
+  	<label>Dietary Restrictions</label>
+  		<div class="two wide field">
+	  		<div class="ui radio checkbox">
+	  			<input type="radio" id="none" name="diet" tabindex="0" class="hidden">
+	  			<label>None</label>
+	  		</div>
+	  	</div>
+	  	<div class="two wide field">
+	  		<div class="ui radio checkbox">
+	  			<input type="radio" id="vegetarian" name="diet" tabindex="0" class="hidden">
+	  			<label>Vegetarian</label>
+	  		</div>
+	  	</div>
+	  	<div class="two wide field">
+	  		<div class="ui radio checkbox">
+	  			<input type="radio" id="other" name="diet" tabindex="0" class="hidden">
+	  			<label>Other</label>
+	  		</div>
+	  	</div>
+	</div>
+	<div class="field">
+    	<label>If other, please explain: </label>
+    	<textarea rows="2" id="othertext"></textarea>
+  	</div>
+  	
+  	<hr/>
+  	
+  	<div class="required inline field">
+  		<div class="waiver required ui checkbox">
+  			<input type="checkbox" id="waiver" name="waiver" tabindex="0" class="hidden">
+    		<label>I have read and signed the <a href="https://sait.usc.edu/stuorgs/forms/waiver_form.pdf">USC General Liability Waiver</a> and will bring it to MedGames.</label>
+    	</div>
+  	</div>
+
+  	<div class="ui submit button">Submit</div>
 </form>
+
+
