@@ -22,4 +22,7 @@ class StaticPagesController < ApplicationController
 
 	def register
 	end
+
+	def payments
+	end
 end

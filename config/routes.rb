@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/sponsors', to: 'static_pages#sponsors'
   get '/location', to: 'static_pages#location'
   get '/registration', to: 'static_pages#registration'
+  get '/payments', to: 'static_pages#payments'
 
   get 'events/basketball'
   get 'events/dance'
