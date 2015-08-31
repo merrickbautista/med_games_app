@@ -102,6 +102,7 @@ $("form").on('submit', function (e) {
   	var signature = $('#signature').val();
     var date = $('#date').val();
     var pay = $('input[name=pay]:checked').val();
+    var shirt = $('input[name=shirt]:checked').val();
   	if (first !== "" && last !== "" && school !== "" && email !== "" && (none !== "" || vegetarian !== "" || other !== "") && signature !== "" && date !== "" && pay !== "") {
             $.ajax({
                 url: "https://docs.google.com/forms/d/1eg8uamz1dayiuF4ZqlhRkEcPcEW9NmjKSjdXoItfkcY/formResponse",
@@ -123,7 +124,8 @@ $("form").on('submit', function (e) {
                 "entry.1446796015": othertext,
                 "entry.1945235658": signature,
                 "entry.201162538": date,
-                "entry.2141247672": pay
+                "entry.2141247672": pay,
+                "entry.513873462": shirt
 
                 },
                 type: "POST",
@@ -210,6 +212,47 @@ $("form").on('submit', function (e) {
           <label>Food Only - $8</label>
         </div>
       </div>
+  </div>
+  <br/>
+  <div class="inline grouped fields">
+    <label>Shirt Size: </label>
+      <div class="two wide field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="xsmall" name="shirt" tabindex="0" class="hidden" value="XS">
+          <label>XS</label>
+        </div>
+      </div>
+      <div class="two wide field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="small" name="shirt" tabindex="0" class="hidden" value="S">
+          <label>S</label>
+        </div>
+      </div>
+      <div class="two wide field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="medium" name="shirt" tabindex="0" class="hidden" value="M">
+          <label>M</label>
+        </div>
+      </div>
+      <div class="two wide field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="large" name="shirt" tabindex="0" class="hidden" value="L">
+          <label>L</label>
+        </div>
+      </div>
+      <div class="two wide field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="xlarge" name="shirt" tabindex="0" class="hidden" value="XL">
+          <label>XL</label>
+        </div>
+      </div>
+      <div class="two wide field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="xxlarge" name="shirt" tabindex="0" class="hidden" value="XXL">
+          <label>XXL</label>
+        </div>
+      </div>
+
   </div>
 
   <hr/>
