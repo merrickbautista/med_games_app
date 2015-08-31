@@ -69,6 +69,15 @@ $(document).ready(function(){
           }
         ]
       },
+      pay: {
+        identifier: 'pay',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Please select your participation option'
+          }
+        ]
+      },
 	  });
 $("form").on('submit', function (e) {
    //ajax call here
@@ -92,7 +101,8 @@ $("form").on('submit', function (e) {
   	var othertext = $('#othertext').val();
   	var signature = $('#signature').val();
     var date = $('#date').val();
-  	if (first !== "" && last !== "" && school !== "" && email !== "" && (none !== "" || vegetarian !== "" || other !== "") && signature !== "" && date !== "") {
+    var pay = $('input[name=pay]:checked').val();
+  	if (first !== "" && last !== "" && school !== "" && email !== "" && (none !== "" || vegetarian !== "" || other !== "") && signature !== "" && date !== "" && pay !== "") {
             $.ajax({
                 url: "https://docs.google.com/forms/d/1eg8uamz1dayiuF4ZqlhRkEcPcEW9NmjKSjdXoItfkcY/formResponse",
                 data: { 
@@ -112,17 +122,18 @@ $("form").on('submit', function (e) {
                 "entry.1762470759": diet,
                 "entry.1446796015": othertext,
                 "entry.1945235658": signature,
-                "entry.201162538": date
+                "entry.201162538": date,
+                "entry.2141247672": pay
 
                 },
                 type: "POST",
                 dataType: "xml",
                 statusCode: {
                     0: function () {
-                        window.location.replace("payments");
+                        window.location.replace("payments?name=" + first + "_" + last + "&school=" + school + "&participation=" + pay);
                     },
                     200: function () {
-                        window.location.replace("events");
+                        window.location.replace("registration");
                     }
                 }
             });
@@ -172,6 +183,35 @@ $("form").on('submit', function (e) {
 	  	<input type="email" id="email" name="email" placeholder = "example@school.edu">
 	  </div>
   </div>
+
+  <div class="required grouped fields">
+    <label>Participation Option:</label>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="full" name="pay" tabindex="0" class="hidden" value="Full">
+          <label>Full Participation (Sports, Shirt, & Food) - $25</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="combo" name="pay" tabindex="0" class="hidden" value="Combo">
+          <label>Shirt & Food Combo - $16</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="shirt" name="pay" tabindex="0" class="hidden" value="Shirt">
+          <label>Shirt Only - $8</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio" id="food" name="pay" tabindex="0" class="hidden" value="Food">
+          <label>Food Only - $8</label>
+        </div>
+      </div>
+  </div>
+
   <hr/>
 
   <div class="inline grouped fields">
@@ -266,12 +306,12 @@ $("form").on('submit', function (e) {
   	
     <label>I have read the <%= link_to 'USC Lyon Center Waiver', root_url+'LyonCenterWaiver.pdf', {target: '_blank'} %>. I acknowledge that by entering my e-signature and the date below, I agree with the document. </label>
   	<div class="two fields">
-      <div class="ten wide required field">
+      <div class="eleven wide required field">
         <label>E-Signature</label>
         <input type="text" id="signature" name="signature" placeholder="E-Signature">
       </div>
       
-      <div class="three wide required field">
+      <div class="five wide required field">
         <label>Date</label>
         <input type="date" id="date" name="date" placeholder="mm/dd/yyyy">
       </div>
