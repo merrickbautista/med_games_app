@@ -51,15 +51,24 @@ $(document).ready(function(){
 	  			}
 	  		]
 	  	},
-	  	waiver: {
-	  		identifier: 'waiver',
+	  	signature: {
+	  		identifier: 'signature',
 	  		rules: [
 	  			{
-	  				type: 'checked',
+	  				type: 'empty',
 	  				prompt: 'Please acknowledge that you have read and signed the waiver'
 	  			}
 	  		]
 	  	},
+      date: {
+        identifier: 'date',
+        rules: [
+          {
+            type: 'empty',
+            prompt: 'Please date your signature'
+          }
+        ]
+      },
 	  });
 $("form").on('submit', function (e) {
    //ajax call here
@@ -67,29 +76,50 @@ $("form").on('submit', function (e) {
   	var last = $('#last-name').val();
   	var school = $('#school').val();
   	var email = $('#email').val();
-  	var fivekrun = $('#5krun').val();
-  	var basketball = $('#basketball').val();
-  	var dance = $('#dance').val();
-  	var dodgeball = $('#dodgeball').val();
-  	var flagfootball = $('#flagfootball').val();
-  	var relayrace = $('#relayrace').val();
-  	var soccer = $('#soccer').val();
-  	var volleyball = $('#volleyball').val();
+  	var fivekrun = $('#5krun').prop('checked') ? "X" : "";
+  	var basketball = $('#basketball').prop('checked') ? "X" : "";
+  	var dance = $('#dance').prop('checked') ? "X" : "";
+  	var dodgeball = $('#dodgeball').prop('checked') ? "X" : "";
+  	var flagfootball = $('#flagfootball').prop('checked') ? "X" : "";
+  	var relayrace = $('#relayrace').prop('checked') ? "X" : "";
+  	var soccer = $('#soccer').prop('checked') ? "X" : "";
+    var swimming = $('#swimming').prop('checked') ? "X" : "";
+  	var volleyball = $('#volleyball').prop('checked') ? "X" : "";
   	var none = $('#none').val();
   	var vegetarian = $('#vegetarian').val();
   	var other = $('#other').val();
+    var diet = $('input[name=diet]:checked').val();
   	var othertext = $('#othertext').val();
-  	var waiver = $('#waiver').prop('checked');
-  	if (first !== "" && waiver) {
+  	var signature = $('#signature').val();
+    var date = $('#date').val();
+  	if (first !== "" && last !== "" && school !== "" && email !== "" && (none !== "" || vegetarian !== "" || other !== "") && signature !== "" && date !== "") {
             $.ajax({
                 url: "https://docs.google.com/forms/d/1eg8uamz1dayiuF4ZqlhRkEcPcEW9NmjKSjdXoItfkcY/formResponse",
                 data: { 
-                "entry.734080887": first},
+                "entry.734080887": first,
+                "entry.1730237049": last,
+                "entry.902623379": school,
+                "entry.850945618": email,
+                "entry.6328788": fivekrun,
+                "entry.1892339281": basketball,
+                "entry.518841102": dance,
+                "entry.1046036799": dodgeball,
+                "entry.6745501": flagfootball,
+                "entry.1842719792": relayrace,
+                "entry.1242483108": soccer,
+                "entry.519882693": swimming,
+                "entry.104834684": volleyball,
+                "entry.1762470759": diet,
+                "entry.1446796015": othertext,
+                "entry.1945235658": signature,
+                "entry.201162538": date
+
+                },
                 type: "POST",
                 dataType: "xml",
                 statusCode: {
                     0: function () {
-                        window.location.replace("schools");
+                        window.location.replace("payments");
                     },
                     200: function () {
                         window.location.replace("events");
@@ -105,7 +135,8 @@ $("form").on('submit', function (e) {
 
 </script>
 <h1>Registration</h1>
-
+<em>If you have already registered and are looking to pay, please go <%= link_to 'here', payments_path %>.</em>
+<hr/>
 <form class="ui fluid form" id="registration-form">
   <div class="ui error message"></div>
   <div class="field">
@@ -148,49 +179,55 @@ $("form").on('submit', function (e) {
   <br/>
     <div class="three wide field">
       <div class="ui checkbox">
-        <input type="checkbox" id= "5krun" name="5krun" tabindex="0" class="hidden">
+        <input type="checkbox" id= "5krun" name="5krun" tabindex="0" class="hidden" value="X">
         <label>5K Run</label>
       </div>
     </div>
     <div class="three wide field">
       <div class="ui checkbox">
-        <input type="checkbox" id="basketball" name="basketball" tabindex="0" class="hidden">
+        <input type="checkbox" id="basketball" name="basketball" tabindex="0" class="hidden" value="X">
         <label>Basketball</label>
       </div>
     </div>
     <div class="three wide field">
       <div class="ui checkbox">
-        <input type="checkbox" id="dance" name="dance" tabindex="0" class="hidden">
+        <input type="checkbox" id="dance" name="dance" tabindex="0" class="hidden" value="X">
         <label>Dance</label>
       </div>
     </div>
     <div class="three wide field">
       <div class="ui checkbox">
-        <input type="checkbox" id="dodgeball" name="dodgeball" tabindex="0" class="hidden">
+        <input type="checkbox" id="dodgeball" name="dodgeball" tabindex="0" class="hidden" value="X">
         <label>Dodgeball</label>
       </div>
     </div>
     <div class="three wide field">
       <div class="ui checkbox">
-        <input type="radio" id="flagfootball" name="flagfootball" tabindex="0" class="hidden">
+        <input type="radio" id="flagfootball" name="flagfootball" tabindex="0" class="hidden" value="X">
         <label>Flag Football</label>
       </div>
     </div>
     <div class="three wide field">
       <div class="ui checkbox">
-        <input type="checkbox" id="relayrace" name="relayrace" tabindex="0" class="hidden">
+        <input type="checkbox" id="relayrace" name="relayrace" tabindex="0" class="hidden" value="X">
         <label>Relay Race</label>
       </div>
     </div>
     <div class="three wide field">
       <div class="ui checkbox">
-        <input type="checkbox" id="soccer" name="soccer" tabindex="0" class="hidden">
+        <input type="checkbox" id="soccer" name="soccer" tabindex="0" class="hidden" value="X">
         <label>Soccer</label>
       </div>
     </div>
     <div class="three wide field">
       <div class="ui checkbox">
-        <input type="checkbox" id="volleyball" name="volleyball" tabindex="0" class="hidden">
+        <input type="checkbox" id="swimming" name="swimming" tabindex="0" class="hidden" value="X">
+        <label>Swimming</label>
+      </div>
+    </div>
+    <div class="three wide field">
+      <div class="ui checkbox">
+        <input type="checkbox" id="volleyball" name="volleyball" tabindex="0" class="hidden" value="X">
         <label>Volleyball</label>
       </div>
     </div>
@@ -203,19 +240,19 @@ $("form").on('submit', function (e) {
   	<label>Dietary Restrictions</label>
   		<div class="two wide field">
 	  		<div class="ui radio checkbox">
-	  			<input type="radio" id="none" name="diet" tabindex="0" class="hidden">
+	  			<input type="radio" id="none" name="diet" tabindex="0" class="hidden" value="None">
 	  			<label>None</label>
 	  		</div>
 	  	</div>
 	  	<div class="two wide field">
 	  		<div class="ui radio checkbox">
-	  			<input type="radio" id="vegetarian" name="diet" tabindex="0" class="hidden">
+	  			<input type="radio" id="vegetarian" name="diet" tabindex="0" class="hidden" value="Vegetarian">
 	  			<label>Vegetarian</label>
 	  		</div>
 	  	</div>
 	  	<div class="two wide field">
 	  		<div class="ui radio checkbox">
-	  			<input type="radio" id="other" name="diet" tabindex="0" class="hidden">
+	  			<input type="radio" id="other" name="diet" tabindex="0" class="hidden" value="Other">
 	  			<label>Other</label>
 	  		</div>
 	  	</div>
@@ -227,11 +264,17 @@ $("form").on('submit', function (e) {
   	
   	<hr/>
   	
-  	<div class="required inline field">
-  		<div class="waiver required ui checkbox">
-  			<input type="checkbox" id="waiver" name="waiver" tabindex="0" class="hidden">
-    		<label>I have read and signed the <a href="https://sait.usc.edu/stuorgs/forms/waiver_form.pdf">USC General Liability Waiver</a> and will bring it to MedGames.</label>
-    	</div>
+    <label>I have read the <%= link_to 'USC Lyon Center Waiver', root_url+'LyonCenterWaiver.pdf', {target: '_blank'} %>. I acknowledge that by entering my e-signature and the date below, I agree with the document. </label>
+  	<div class="two fields">
+      <div class="ten wide required field">
+        <label>E-Signature</label>
+        <input type="text" id="signature" name="signature" placeholder="E-Signature">
+      </div>
+      
+      <div class="three wide required field">
+        <label>Date</label>
+        <input type="date" id="date" name="date" placeholder="mm/dd/yyyy">
+      </div>
   	</div>
 
   	<div class="ui submit button">Submit</div>
